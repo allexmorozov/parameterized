@@ -30,21 +30,19 @@ public class RegistrationParametrizedTest {
     void userNameTest(String userName) {
         $("#userName").setValue(userName);
         $("#submit").click();
-        $("#name").shouldHave(text(userName));
+        $("#output").shouldHave(text(userName));
     }
+
     @CsvSource({
-            "Alex, alex@email.com",
-            "Bob, bob@email.com"
+            "Alex, alex@email.com, mira 20",
+            "Bob, bob@email.com, nowar 22"
     })
     @ParameterizedTest(name = "Проверка отображения формы регистрации \"{0}\"")
-    void complexTest(String userName, String userEmail) {
+    void complexTest(String userName, String userEmail, String userAddress) {
         $("#userName").setValue(userName);
         $("#userEmail").setValue(userEmail);
+        $("#currentAddress").setValue(userAddress);
         $("#submit").click();
-        $("#name").shouldHave(text(userName));
-        $("#email").shouldHave(text(userEmail));
+        $("#output").shouldHave(text(userName), text(userEmail), text(userAddress));
     }
-
-
-
 }
